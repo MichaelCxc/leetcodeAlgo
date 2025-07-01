@@ -15,7 +15,7 @@ public class QuickSort {
     private static void quickSortRecursively(int[] nums, int left, int right) {
         if (left >= right) return;
 
-        int p = partition(nums, left, right);
+        int p = partition4(nums, left, right);
         quickSortRecursively(nums, left, p - 1);
         quickSortRecursively(nums, p + 1, right);
     }
@@ -31,7 +31,7 @@ public class QuickSort {
             h = stack[top--];
             l = stack[top--];
 
-            int p = partition(arr, l, h);
+            int p = partition3(arr, l, h);
 
             if (p-1 > l) {
                 stack[++top] = l;
@@ -86,6 +86,26 @@ public class QuickSort {
         return j;
     }
 
+    private static int partition4(int[] nums, int start, int end){
+        int pivotal = nums[end];
+        int l = start, r = end-1;
+        while(l < r){
+            while(l<=r &&nums[l] < pivotal)l++;
+            while(l <= r && nums[r] >= pivotal)r--;
+            if(l < r){
+                swap(nums,l,r);
+            }else{
+                break;
+            }
+            //l++;r--;
+        }
+        if(nums[l] >= pivotal){
+            swap(nums,l,end);
+        }
+
+        return l;
+    }
+
 
     private static void swap(int[] nums, int i, int j) {
         int temp = nums[i];
@@ -94,16 +114,19 @@ public class QuickSort {
     }
 
     public static void main(String[] args) {
-        int[] arr1 = {10, 3, 7, 5, 20, 15, 1};
-        QuickSort.sortIteratively(arr1);
+        int[] arr1 = {10, 3, 7, 5, 20, 15, 1,1,1,1,1,3,3,3,3,3,116,15,15,1,5,15,15,17};
+        QuickSort.quickSortRecursively(arr1,0,arr1.length-1);
         System.out.println(Arrays.toString(arr1));
-
-        int[] arr2 = {};
-        QuickSort.sortIteratively(arr2);
-        System.out.println(Arrays.toString(arr2));
-
-        int[] arr3 = {10};
-        QuickSort.sortIteratively(arr3);
-        System.out.println(Arrays.toString(arr3));
+//
+//        int[] arr2 = {};
+//        QuickSort.sortIteratively(arr2);
+//        System.out.println(Arrays.toString(arr2));
+//
+//        int[] arr3 = {10};
+//        QuickSort.sortIteratively(arr3);
+//        System.out.println(Arrays.toString(arr3));
+        int[] arr4 = {0,1,2,3,4,5,6,7,8,9,10};
+        QuickSort.quickSortRecursively(arr4,0,arr4.length-1);
+        System.out.println(Arrays.toString(arr4));
     }
 }
